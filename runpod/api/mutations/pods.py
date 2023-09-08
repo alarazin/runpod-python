@@ -9,7 +9,8 @@ def generate_pod_deployment_mutation(
         cloud_type:str="ALL", support_public_ip:bool=False,
         data_center_id=None, country_code=None,
         gpu_count=None, volume_in_gb=None, container_disk_in_gb=None, min_vcpu_count=None,
-        min_memory_in_gb=None, docker_args=None, ports=None, volume_mount_path=None,
+        min_memory_in_gb=None, docker_args=None, ports=None, volume_mount_path=None, 
+        network_volume_id = None, template_id = None, 
         env=None):
     '''
     Generates a mutation to deploy a pod on demand.
@@ -51,6 +52,10 @@ def generate_pod_deployment_mutation(
         input_fields.append(f'ports: "{ports}"')
     if volume_mount_path is not None:
         input_fields.append(f'volumeMountPath: "{volume_mount_path}"')
+    if network_volume_id is not None:
+        input_fields.append(f'networkVolumeId: "{network_volume_id}"')
+    if template_id is not None:
+        input_fields.append(f'templateId: "{template_id}"')
     if env is not None:
         env_string = ", ".join(
             [f'{{ key: "{key}", value: "{value}" }}' for key, value in env.items()])
@@ -71,6 +76,8 @@ def generate_pod_deployment_mutation(
         imageName
         env
         machineId
+        network_volume_id
+        template_id
         machine {{
           podHostId
         }}

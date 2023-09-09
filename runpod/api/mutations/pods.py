@@ -76,8 +76,6 @@ def generate_pod_deployment_mutation(
         imageName
         env
         machineId
-        network_volume_id
-        template_id
         machine {{
           podHostId
         }}
